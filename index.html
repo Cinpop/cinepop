@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cin&Pop — Recensioni di film</title>
+  <style>
+    :root {
+      --bg: #000;
+      --accent: #e50914;
+      --muted: #b3b3b3;
+      --card: #111;
+      --font: 'Poppins', sans-serif;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: #fff;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Intro screen */
+    #intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      opacity: 1;
+      transition: opacity 1s ease;
+      z-index: 999;
+    }
+    #intro.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: #0a0a0a;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--accent);
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 20px;
+      transition: color .2s;
+    }
+    nav a:hover { color: #fff; }
+
+    /* Sections */
+    section {
+      display: none;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    section.active { display: block; }
+
+    h2 {
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+      font-size: 1.4rem;
+    }
+
+    /* Reviews grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: transform .3s;
+    }
+    .card:hover { transform: scale(1.03); }
+    .card img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+    }
+    .card .info {
+      padding: 10px;
+    }
+    .card .title {
+      font-weight: 600;
+      margin: 0;
+      font-size: 1rem;
+    }
+    .card .rating {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="intro">Cin&Pop</div>
+
+  <header>
+    <h1>Cin&Pop</h1>
+    <nav>
+      <a href="#recensioni" onclick="showSection('recensioni');return false">Le mie recensioni</a>
+      <a href="#lista" onclick="showSection('lista');return false">La lista dei film</a>
+      <a href="#chi" onclick="showSection('chi');return false">Chi sono</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="recensioni" class="active">
+      <h2>Le mie recensioni</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://via.placeholder.com/180x270?text=Poster" alt="poster">
+          <div class="info">
+            <p class="title">Film Drammatico (2025)</p>
+            <p class="rating">★ 8.0</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/180x270?text=Poster" alt="poster">
+          <div class="info">
+            <p class="title">Commedia Estiva (2024)</p>
+            <p class="rating">★ 6.5</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lista">
+      <h2>La lista dei film</h2>
+      <div class="grid">
+        <div class="card"><img src="https://via.placeholder.com/180x270?text=Poster"><div class="info"><p class="title">Film 1</p></div></div>
+        <div class="card"><img src="https://via.placeholder.com/180x270?text=Poster"><div class="info"><p class="title">Film 2</p></div></div>
+        <div class="card"><img src="https://via.placeholder.com/180x270?text=Poster"><div class="info"><p class="title">Film 3</p></div></div>
+      </div>
+    </section>
+
+    <section id="chi">
+      <h2>Chi sono</h2>
+      <p>Sono un appassionato di cinema che preferisce restare anonimo. Cin&Pop è il mio spazio per condividere pensieri e recensioni sui film che mi colpiscono. Nessuna pubblicità, nessun filtro, solo opinioni sincere.</p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Cin&Pop — Recensioni di film anonime.
+  </footer>
+
+  <script>
+    function showSection(id){
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Intro auto-hide after 3s
+    setTimeout(() => {
+      document.getElementById('intro').classList.add('hide');
+    }, 3000);
+  </script>
+</body>
+</html>
