@@ -182,7 +182,8 @@
     <section id="recensioni" class="active">
       <h2>Le mie recensioni</h2>
       <div class="grid"></div>
-       <div class="card">
+      
+       <div class="card" id="rec-l'avvocato-del-diavolo">
          <img src="L'avvocato del diavolo.jpg" alt="L'avvocato del diavolo">
          <div class="info">
            <p class="title">L'avvocato del diavolo — 1997</p>
@@ -227,7 +228,8 @@
     <section id="recensioni" class="active">
       <h2>Le mie recensioni</h2>
       <div class="grid"></div>
-       <div class="card">
+      
+       <div class="card" id="rec-Mullholland-Drive">
          <img src="Mulholland Drive.jpg" alt="Mulholland Drive">
          <div class="info">
            <p class="title">Mulholland Drive — 2001</p>
@@ -290,14 +292,18 @@
     </div>
     
     <div class="card">
-      <img src="L'avvocato del diavolo.jpg" alt="L'avvocato del diavolo">
+      <a href="#rec-l'avvocato-del-diavolo" onclick="goToReview('rec-l'avvocato-del-diavolo'); return false;">
+        <img src="L'avvocato del diavolo.jpg" alt="L'avvocato del diavolo">
+      </a>
       <div class="info">
         <p class="title">L'avvocato del diavolo (1997)</p>
       </div>
     </div>
 
     <div class="card">
-      <img src="Mulholland Drive.jpg" alt="Mulholland Drive">
+      <a href="#rec-Mullholland-Drive" onclick="goToReview('rec-Mullholland-Drive'); return false;">
+        <img src="Mulholland Drive.jpg" alt="Mulholland Drive">
+      </a>
       <div class="info">
         <p class="title">Mulholland Drive (2001)</p>
       </div>
