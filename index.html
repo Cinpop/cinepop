@@ -142,7 +142,8 @@
     <section id="recensioni" class="active">
       <h2>Le mie recensioni</h2>
       <div class="grid"></div>
-       <div class="card">
+      
+       <div class="card" id="rec-le-iene">
          <img src="Le-Iene.jpg" alt="Le Iene (Reservoir Dogs)">
          <div class="info">
            <p class="title">Le iene (Reservoir Dogs) — 1992</p>
@@ -280,7 +281,9 @@
   <div class="grid">
     
     <div class="card">
-      <img src="Le-Iene.jpg" alt="Le Iene (Reservoir Dogs)">
+      <a href="#rec-le-iene" onclick="goToReview('rec-le-iene'); return false;">
+        <img src="Le-Iene.jpg" alt="Le Iene (Reservoir Dogs)">
+      </a>
       <div class="info">
         <p class="title">Le Iene (1992)</p>
       </div>
@@ -329,5 +332,19 @@
       document.getElementById('intro').classList.add('hide');
     }, 3000);
   </script>
+  
+<script>
+  function goToReview(reviewId) {
+    // Mostra la sezione "recensioni"
+    showSection('recensioni');
+    // Dopo un leggero ritardo (per far apparire la sezione),
+    // scorre fino alla recensione specifica
+    setTimeout(() => {
+      document.getElementById(reviewId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 400);
+  }
+</script>
+
+  
 </body>
 </html>
