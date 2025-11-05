@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cin&Pop — Recensioni di film</title>
+  
   <style>
     :root {
       --bg: #000;
@@ -130,6 +131,45 @@
       padding: 30px;
       border-top: 1px solid rgba(255,255,255,0.1);
     }
+
+    /* --- MENU A TENDINA --- */
+.menu-toggle {
+  position: relative;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  padding: 10px;
+  flex-direction: column;
+  min-width: 180px;
+  z-index: 200;
+}
+
+.dropdown a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  transition: background .2s;
+}
+
+.dropdown a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.menu-toggle.open .dropdown {
+  display: flex;
+}
+
   </style>
 </head>
 <body>
@@ -137,6 +177,16 @@
 
   <header>
     <h1>Cin&Pop</h1>
+    <div class="menu-toggle">
+      🎥
+      <div class="dropdown">
+        <a href="#home">Home</a>
+        <a href="#recensioni">Le mie recensioni</a>
+        <a href="#lista">La lista dei film</a>
+        <a href="#chi">Chi sono</a>
+      </div>
+    </div>
+
     <nav>
       <a href="#recensioni" onclick="showSection('recensioni');return false">Le mie recensioni</a>
       <a href="#lista" onclick="showSection('lista');return false">La lista dei film</a>
@@ -345,6 +395,14 @@
   }
 </script>
 
-  
+  <script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('open');
+  });
+    
+</script>
+
+
 </body>
 </html>
