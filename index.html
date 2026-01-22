@@ -132,6 +132,49 @@
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
+   
+.ranking {
+  list-style: none; /* togli i numeri di default */
+  padding: 0;
+  margin: 0;
+}
+
+.ranking li {
+  display: flex;           /* elementi in fila */
+  align-items: center;     /* allinea verticalmente */
+  gap: 15px;               /* spazio tra immagine, titolo e voto */
+  margin-bottom: 15px;     /* spazio tra le righe */
+  background: var(--card);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.ranking .badge {
+  background: #000;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-weight: bold;
+  min-width: 25px;
+  text-align: center;
+}
+
+.ranking .small-img {
+  width: 50px;   /* larghezza uniforme */
+  height: 50px;  /* altezza uniforme */
+  object-fit: cover;  /* ritaglia l'immagine se necessario */
+  border-radius: 5px;
+}
+
+.ranking .movie {
+  font-weight: 600;
+  flex-grow: 1;   /* prende tutto lo spazio disponibile */
+}
+
+.ranking .score {
+  font-weight: bold;
+  color: var(--accent);
+}
 
   </style>
 </head>
