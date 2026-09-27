@@ -1134,6 +1134,92 @@ storia, Moby Dick.<br><br>
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 </script>
 
+<script>
+  let modalitaAuth = 'login';
+
+  function apriModaleAuth() {
+    document.getElementById('auth-modal').style.display = 'flex';
+  }
+
+  function chiudiModaleAuth() {
+    document.getElementById('auth-modal').style.display = 'none';
+    document.getElementById('auth-errore').textContent = '';
+    document.getElementById('auth-email').value = '';
+    document.getElementById('auth-password').value = '';
+    document.getElementById('auth-username').value = '';
+  }
+
+  function cambiaModalitaAuth() {
+    modalitaAuth = modalitaAuth === 'login' ? 'signup' : 'login';
+    document.getElementById('auth-errore').textContent = '';
+    if (modalitaAuth === 'signup') {
+      document.getElementById('auth-titolo').textContent = 'Registrati';
+      document.getElementById('auth-username').style.display = 'block';
+      document.querySelector('#auth-modal button').textContent = 'Registrati';
+      document.getElementById('auth-switch').textContent = 'Hai già un account? Accedi';
+    } else {
+      document.getElementById('auth-titolo').textContent = 'Accedi';
+      document.getElementById('auth-username').style.display = 'none';
+      document.querySelector('#auth-modal button').textContent = 'Accedi';
+      document.getElementById('auth-switch').textContent = 'Non hai un account? Registrati';
+    }
+  }
+
+  async function eseguiAuth() {
+    const email = document.getElementById('auth-email').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const username = document.getElementById('auth-username').value.trim();
+    const erroreEl = document.getElementById('auth-errore');
+    erroreEl.style.color = '#e50914';
+    erroreEl.textContent = '';
+
+    if (!email || !password) {
+      erroreEl.textContent = 'Inserisci email e password.';
+      return;
+    }
+
+    if (modalitaAuth === 'signup') {
+      if (!username) {
+        erroreEl.textContent = 'Scegli un nome utente.';
+        return;
+      }
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
+      if (error) { erroreEl.textContent = error.message; return; }
+      if (data.user) {
+        await supabaseClient.from('profiles').update({ username }).eq('id', data.user.id);
+      }
+      erroreEl.style.color = '#4caf50';
+      erroreEl.textContent = 'Registrazione completata! Ora accedi con email e password.';
+    } else {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) { erroreEl.textContent = error.message; return; }
+      chiudiModaleAuth();
+      aggiornaStatoAuth();
+    }
+  }
+
+  async function eseguiLogout() {
+    await supabaseClient.auth.signOut();
+    aggiornaStatoAuth();
+  }
+
+  async function aggiornaStatoAuth() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    const link = document.getElementById('auth-link');
+    if (session) {
+      const { data: profilo } = await supabaseClient
+        .from('profiles').select('username').eq('id', session.user.id).single();
+      link.textContent = `Esci (${profilo ? profilo.username : session.user.email})`;
+      link.onclick = function(e) { e.preventDefault(); eseguiLogout(); };
+    } else {
+      link.textContent = 'Accedi';
+      link.onclick = function(e) { e.preventDefault(); apriModaleAuth(); };
+    }
+  }
+
+  aggiornaStatoAuth();
+</script>
+
 
 </body>
 </html>
